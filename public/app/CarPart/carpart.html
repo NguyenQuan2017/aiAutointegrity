@@ -1,0 +1,82 @@
+
+<div id="CarPart">
+    <div class="col-md-12 panel panel-default" id="panel"  ng-init="init()" ng-cloak>
+        <div class="col-md-12">
+            <label for="">Make</label>
+            <select  class="form-control make" ng-change="changeMake()" ng-model="make" >
+                <option ng-repeat="make in makes" value="{{make.Make}}" >{{make.Make}}</option>
+            </select>
+        </div>
+        <div class="col-md-12">
+            <label for="">Model</label>
+            <select  class="form-control" ng-change="ChangeModel()" ng-model="model" >
+                <option ng-repeat="model in models" value="{{model.Model}}">{{model.Model}}</option>
+            </select>
+        </div>
+        <div class="col-md-12">
+            <label for="">Series</label>
+            <select class="form-control" ng-model="serie" ng-change="ChangeSeries()" >
+                <option ng-repeat="serie in series" value="{{serie.Series}}">{{serie.Series}}</option>
+            </select>
+        </div>
+        <div class="col-md-12 ">
+            <label for="">Badge</label>
+            <select  class="form-control" ng-model="badge" ng-change="ChangeBadge()">
+                <option value="{{badge.Badge}}" ng-repeat="badge in badges">{{badge.Badge}}</option>
+            </select>
+        </div>
+        <div class="col-md-12 " style="margin-top: 20px">
+            <button class="btn btn-default  col-md-offset-4 col-sm-offset-4 col-xs-offset-1 " ng-click="Show()" style="margin-bottom: 10px;width:200px">Show</button>
+        </div>
+    </div>
+    <div class="col-md-12 panel panel-default table-responsive">
+        <div class="col-md-12">
+            <div class="col-md-8 col-sm-6 ">
+                <input type="text" class="keyword" ng-model="search"   placeholder="Search.."><button class="btn btn-info" ng-click = "Search()">Search</button>
+                <hr>
+            </div>
+
+        </div>
+        <table class="table table-responsive  col-md-8" id="table" >
+            <thead>
+            <tr ng-hide="CarPartPrice" id="CarPartNumber">
+                <th>Description</th>
+                <th>Part Number</th>
+                <th>Price</th>
+            </tr>
+            <tr ng-hide="SearchPartNumber">
+                <th>Make</th>
+                <th>Model</th>
+                <th>Series</th>
+                <th>Badge</th>
+                <th>Description</th>
+                <th>Part Number</th>
+                <th>Price</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-hide="CarPartPrice" ng-repeat=" result in results">
+                <td>{{result.Description}}</td>
+                <td>{{result.PartNumber}}</td>
+                <td>{{result.Price | number: 2}}</td>
+            </tr>
+
+            <tr   ng-hide="SearchPartNumber" ng-repeat=" keyword in keywords"  >
+                <td>{{keyword.Make}}</td>
+                <td>{{keyword.Model}}</td>
+                <td>{{keyword.Series}}</td>
+                <td>{{keyword.Badge}}</td>
+                <td>{{keyword.parts[0].Description}}</td>
+                <td>{{keyword.PartNumber}}</td>
+                <td>{{keyword.Price| number: 2}}</td>
+
+            <tr>
+
+            </tbody>
+        </table>
+
+    </div>
+</div>
+<div id="loaderDiv"  loader>
+    <img src="dist/img/Loading_icon.gif"  class="ajax-loader "/>
+</div>
