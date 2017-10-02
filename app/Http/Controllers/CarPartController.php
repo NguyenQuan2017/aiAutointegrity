@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Car;
-use App\Models\Part;
-use App\Models\Price;
+use App\Models\Flat;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -14,8 +13,8 @@ class CarPartController extends Controller
 {
 
    public function Make() {
-       $makes = Car::selectRaw('upper(Make) as Make,count(Make) as countMake')
-           ->groupBy('Make')
+       $makes = Flat::selectRaw('upper(VehicleMake) as VehicleMake,count(VehicleMake) as countMake')
+           ->groupBy('VehicleMake')
            ->orderBy('countMake','DESC')
            ->get();
        return response([
@@ -27,9 +26,9 @@ class CarPartController extends Controller
 
     public function Model(Request $req) {
         $makes = $req->input('makes');
-        $models = Car::selectRaw('upper(Model) as Model,count(Model) as countModel')
-            ->where('Make',$makes)
-            ->groupBy('Model')
+        $models = Flat::selectRaw('upper(VehicleModel) as VehicleModel,count(VehicleModel) as countModel')
+            ->where('VehicleMake',$makes)
+            ->groupBy('VehicleModel')
             ->orderBy('countModel','DESC')
             ->skip(0)
             ->take(500)
@@ -45,9 +44,9 @@ class CarPartController extends Controller
     public function Series (Request $req) {
         $makes = $req->input('makes');
         $models = $req->input('models');
-        $series = Car::selectRaw('upper(Series) as Series, count(Series) as countSeries')
-            ->where([['Make',$makes],['Model',$models],['Series','<>',""],['Series','<>','.']])
-            ->groupBy('Series')
+        $series = Flat::selectRaw('upper(VehicleSeries) as VehicleSeries, count(VehicleSeries) as countSeries')
+            ->where([['VehicleMake',$makes],['VehicleModel',$models],['VehicleSeries','<>',""],['VehicleSeries','<>','.']])
+            ->groupBy('VehicleSeries')
             ->orderBy('countSeries','DESC')
             ->skip(0)
             ->take(500)
@@ -64,9 +63,12 @@ class CarPartController extends Controller
         $makes = $req->input('makes');
         $models = $req->input('models');
         $series = $req->input('series');
-        $badges = Car::selectRaw('upper(Badge) as Badge, count(Badge) as countBadge')
-            ->where([['Make',$makes],['Model',$models],['Series',$series],['Badge','<>',""],['Badge','<>','.'],['Badge','<>','-']])
-            ->groupBy('Badge')
+        $badges = Car::selectRaw('upper(VehicleBadge) as VehicleBadge, count(VehicleBadge) as countBadge')
+            ->where([['VehicleMake',$makes],['VehicleModel',$models],['VehicleSeries',$series],['VehicleBadge','<>',""],
+                ['VehicleBadge',
+                '<>','.'],
+                ['VehicleBadge','<>','-']])
+            ->groupBy('VehicleBadge')
             ->orderBy('countBadge','DESC')
             ->skip(0)
             ->take(500)
@@ -83,33 +85,23 @@ class CarPartController extends Controller
         $models = $req->input('models');
         $series = $req->input('series');
         $badges = $req->input('badges');
-        $partnumber = Car::select('PartNumber')
-//            ->where([['Make',$makes],['Model',$models],['Series',$series],['Badge',$badges]])
-            ->where(function($query) use ($makes, $models, $series, $badges) {
-                if($makes) {
-                    $query->where('Make',$makes);
-                }
-                if($models) {
-                    $query->where('Model',$models);
-                }
-                if($series) {
-                    $query->where('Series',$series);
-                }
-                if($badges) {
-                    $query->where('Badge',$badges);
-                }
-            })
-            ->skip(0)
-            ->take(500)
-            ->get()
-            ->pluck('PartNumber');
-        $numberprice = Car::select('Description','Price','aiPPCar.PartNumber')
-            ->join('aiPPPrice','aiPPCar.PartNumber','=','aiPPPrice.PartNumber')
-            ->join('aiPPPart','aiPPCar.PartNumber','=','aiPPPart.PartNumber')
-            ->whereIn('aiPPCar.PartNumber',$partnumber)
+        $numberprice = Flat::where(function($query) use ($makes, $models, $series, $badges) {
+            if($makes) {
+                $query->where('VehicleMake',$makes);
+            }
+            if($models) {
+                $query->where('VehicleModel',$models);
+            }
+            if($series) {
+                $query->where('VehicleSeries', $series);
+            }
+            if($badges) {
+                $query->where('VehicleBadge', $badges);
+            }
+        })
             ->where('Price','<>',"")
-            ->groupBy('Description','Price','aiPPCar.PartNumber')
-            ->orderBy('Description','ASC')
+            ->where('CommentTest','<>','')
+            ->orderBy('CountNumber','ASC')
             ->skip(0)
             ->take(50)
             ->get();
@@ -121,10 +113,9 @@ class CarPartController extends Controller
     }
     
     public function Search(Request $req) {
-        $search = Car::with('parts')
-            ->join('aiPPPrice','aiPPPrice.PartNumber','=','aiPPCar.PartNumber')
-            ->where('aiPPCar.PartNumber','LIKE',"%{$req->get('keyword')}%")
+        $search = Flat::where('PartNumber','LIKE',"%{$req->get('keyword')}%")
             ->where('Price','<>',"")
+            ->orderBy('CommentTest','ASC')
             ->skip(0)
             ->take(50)
             ->get();

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="1289632317">
+    <data-source source="LOCAL" name="SQL Server (Microsoft) - crashs_db@49.156.52.71" uuid="d2c8373f-0bfa-4880-bf60-bcb4017f844e">
+      <driver-ref>sqlserver.ms</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
+      <jdbc-url>jdbc:sqlserver://49.156.52.71:1433;databaseName=crashs_db</jdbc-url>
+    </data-source>
+  </component>
+</project>
