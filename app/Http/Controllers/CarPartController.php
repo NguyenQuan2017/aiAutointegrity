@@ -31,7 +31,7 @@ class CarPartController extends Controller
             ->groupBy('VehicleModel')
             ->orderBy('countModel','DESC')
             ->skip(0)
-            ->take(500)
+            ->take(2000)
             ->get();
         return response([
             'status'=> 200,
@@ -48,8 +48,6 @@ class CarPartController extends Controller
             ->where([['VehicleMake',$makes],['VehicleModel',$models],['VehicleSeries','<>',""],['VehicleSeries','<>','.']])
             ->groupBy('VehicleSeries')
             ->orderBy('countSeries','DESC')
-            ->skip(0)
-            ->take(500)
             ->get();
         return response([
             'status'=> 200,
@@ -70,8 +68,6 @@ class CarPartController extends Controller
                 ['VehicleBadge','<>','-']])
             ->groupBy('VehicleBadge')
             ->orderBy('countBadge','DESC')
-            ->skip(0)
-            ->take(500)
             ->get();
         return response([
             'status'=> 200,
@@ -87,23 +83,23 @@ class CarPartController extends Controller
         $badges = $req->input('badges');
         $numberprice = Flat::where(function($query) use ($makes, $models, $series, $badges) {
             if($makes) {
-                $query->where('VehicleMake',$makes);
+                $query->where('VehicleMake', $makes);
             }
-            if($models) {
-                $query->where('VehicleModel',$models);
+             if($models) {
+                $query->where('VehicleModel', $models);
             }
-            if($series) {
+             if($series) {
                 $query->where('VehicleSeries', $series);
             }
-            if($badges) {
+             if($badges) {
                 $query->where('VehicleBadge', $badges);
-            }
+             }
         })
             ->where('Price','<>',"")
             ->where('CommentTest','<>','')
-            ->orderBy('CountNumber','ASC')
+            ->orderBy('CommentTest','DESC')
             ->skip(0)
-            ->take(50)
+            ->take(2000)
             ->get();
         return response([
             'status'=> 200,
@@ -123,6 +119,37 @@ class CarPartController extends Controller
             'status'=> 200,
             'messages'=> 'Get data success',
             'search'=> $search
+        ]);
+    }
+    public function ShowPart(Request $req){
+        $makes = $req->input('makes');
+        $models = $req->input('models');
+        $series = $req->input('series');
+        $badges = $req->input('badges');
+        $showPart = Flat::where(function($query) use ($makes, $models, $series, $badges) {
+            if($makes) {
+                $query->where('VehicleMake', $makes);
+            }
+            if($models) {
+                $query->where('VehicleModel', $models);
+            }
+            if($series) {
+                $query->where('VehicleSeries', $series);
+            }
+            if($badges) {
+                $query->where('VehicleBadge', $badges);
+            }
+        })
+            ->where('Price','<>',"")
+            ->where('CommentTest','<>','')
+            ->orderBy('CommentTest','DESC')
+            ->skip(0)
+            ->take(100)
+            ->get();
+        return response([
+            'status'=> 200,
+            'messages'=>'Get data success',
+            'results'=> $showPart
         ]);
     }
 }

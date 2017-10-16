@@ -1,83 +1,96 @@
 
-<div id="CarPart">
-    <div class="col-md-12 panel panel-default" id="panel"  ng-init="init()" ng-cloak>
-        <div class="col-md-12">
+<div id="CarPart" class="container">
+    <div class="row">
+    <div class="panel panel-default col-12 col-md-12 col-xs-12 col-sm-12 " id="panel"  ng-init="init()" ng-cloak>
+        <div class="row">
             <label for="">Make</label>
-            <select  class="form-control make" ng-change="changeMake()" ng-model="make" >
-                <option ng-repeat="make in makes" value="{{make.VehicleMake}}" >{{make.VehicleMake}}</option>
+            <select  class="form-control make col-md-12 col-xs-12 col-sm-12 " ng-change="changeMake()"
+                     ng-model="make" >
+                <option ng-repeat="make in makes"  value="{{make.VehicleMake}}" >{{make.VehicleMake}}</option>
             </select>
         </div>
-        <div class="col-md-12">
+        <div class="row">
             <label for="">Model</label>
-            <select  class="form-control" ng-change="ChangeModel()" ng-model="model" >
+            <select  class="form-control col-md-12 col-xs-12 col-sm-12 " ng-change="ChangeModel()" ng-model="model" >
                 <option ng-repeat="model in models" value="{{model.VehicleModel}}">{{model.VehicleModel}}</option>
             </select>
         </div>
-        <div class="col-md-12">
+        <div class="row">
             <label for="">Series</label>
-            <select class="form-control" ng-model="serie" ng-change="ChangeSeries()" >
+            <select class="form-control col-md-12 col-xs-12 col-sm-12" ng-model="serial" ng-change="ChangeSeries()" >
                 <option ng-repeat="serie in series" value="{{serie.VehicleSeries}}">{{serie.VehicleSeries}}</option>
             </select>
         </div>
-        <div class="col-md-12 ">
+        <div class="row">
             <label for="">Badge</label>
-            <select  class="form-control" ng-model="badge" ng-change="ChangeBadge()">
+            <select  class="form-control col-md-12 col-xs-12" ng-model="badge" ng-change="ChangeBadge()">
                 <option value="{{badge.VehicleBadge}}" ng-repeat="badge in badges">{{badge.VehicleBadge}}</option>
             </select>
         </div>
-        <div class="col-md-12 " style="margin-top: 20px">
-            <button class="btn btn-default  col-md-offset-5 col-sm-offset-5 col-xs-offset-2 " ng-click="Show()"
-                    style="margin-bottom: 10px;width:200px">Show</button>
+        <div style="margin-top: 20px;margin-left:35%;">
+            <button class="btn btn-black  " ng-click="Show()" style="margin-bottom: 10px;width:150px">Show</button>
         </div>
+
     </div>
-    <div class="col-md-12 panel panel-default table-responsive">
-        <div class="col-md-12">
-            <div class="col-md-8 col-sm-6 ">
+    </div>
+    <div class=" panel panel-default container ">
+        <div class="row">
+            <div class="col-12">
                 <input type="text" class="keyword" ng-model="search"   placeholder="Search.."><button class="btn btn-info" ng-click = "Search()">Search</button>
                 <hr>
             </div>
-
-        </div>
-        <table class="table table-responsive  col-md-8" id="table" >
-            <thead>
+        <table class="table table-xs col-12">
+            <thead class="table-inverse" >
             <tr ng-hide="CarPartPrice" id="CarPartNumber">
-                <th>Description</th>
-                <th>Part Number</th>
-                <th>Price</th>
+                <th >Description</th>
+                <th >Part Number</th>
+                <th >Price</th>
             </tr>
             <tr ng-hide="SearchPartNumber">
-                <th>VehicleMake</th>
-                <th>VehicleModel</th>
-                <th>VehicleSeries</th>
-                <th>VehicleBadge</th>
-                <th>Description</th>
-                <th>Part Number</th>
-                <th>Price</th>
+                <th >Vehicle Make</th>
+                <th >Vehicle Model</th>
+                <th >Vehicle Series</th>
+                <th >Vehicle Badge</th>
+                <th >Description</th>
+                <th >Part Number</th>
+                <th >Price</th>
             </tr>
             </thead>
             <tbody>
-            <tr ng-hide="CarPartPrice" ng-repeat=" result in results">
-                <td>{{result.CommentTest}}</td>
+            <tr ng-hide="CarPartPrice" ng-repeat= " result in limitResults">
+                <td >{{result.CommentTest}}</td>
                 <td>{{result.PartNumber}}</td>
-                <td>{{result.Price | number: 2}}</td>
+                <td >{{result.Price | number: 2}}</td>
+
             </tr>
 
-            <tr   ng-hide="SearchPartNumber" ng-repeat=" keyword in keywords"  >
-                <td>{{keyword.VehicleMake}}</td>
-                <td>{{keyword.VehicleModel}}</td>
-                <td>{{keyword.VehicleSeries}}</td>
-                <td>{{keyword.VehicleBadge}}</td>
-                <td>{{keyword.CommentTest}}</td>
-                <td>{{keyword.PartNumber}}</td>
-                <td>{{keyword.Price| number: 2}}</td>
+
+            <tr  ng-hide="SearchPartNumber" ng-repeat= " k in limitSearch" class="col-sm-6 col-xs-6"     ng-click="ShowPart(k.VehicleMake, k.VehicleModel, k.VehicleSeries, k.VehicleBadge)" >
+                <td >
+                    {{k.VehicleMake}}
+                </td>
+                <td>{{k.VehicleModel}}</td>
+                <td>{{k.VehicleSeries}}</td>
+                <td>{{k.VehicleBadge}}</td>
+                <td>{{k.CommentTest}}</td>
+                <td>{{k.PartNumber}}</td>
+                <td>{{k.Price| number: 2}}</td>
 
             <tr>
+                <tr ng-hide="pagination">
+                <td colspan="3">
+                    <pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" items-per-page="itemsPerPage"></pagination>
 
+                </td>
+            </tr>
             </tbody>
+
         </table>
+        </div>
 
     </div>
+
 </div>
-<div id="loaderDiv"  loader>
-    <img src="dist/img/Loading_icon.gif"  class="ajax-loader "/>
+<div id="loaderDiv" class="col-12"  loader>
+    <img src="dist/img/Loading_icon.gif"  class="ajax-loader col-12 col-sm-3 col-xs-3 "/>
 </div>

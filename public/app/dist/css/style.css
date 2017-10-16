@@ -11,7 +11,7 @@
 
 .ajax-loader {
     position: absolute;
-    left: 40%;
+    left: 26%;
     top: 30%;
     margin-left: -32px; /* -1 * image width / 2 */
     margin-top: -32px; /* -1 * image height / 2 */
@@ -36,7 +36,7 @@
 
 }
 .keyword:focus {
-    width: 50%;
+    width: 30%;
 }
 hr {
     width: 100%;
@@ -55,4 +55,16 @@ hr {
 }
 .panel {
     margin-top: 20px;
+}
+table tbody tr td {
+    cursor: pointer;
+}
+.form-control {
+    height:56px;
+}
+.btn-default {
+    height: 50px;
+}
+.btn-black {
+    background: gray !important;
 }

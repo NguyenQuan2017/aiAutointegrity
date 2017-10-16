@@ -22,8 +22,7 @@ Route::get('/series',['uses'=>'CarPartController@Series']);
 Route::get('/badges',['uses'=>'CarPartController@Badges']);
 Route::get('/results',['uses'=>'CarPartController@NumberPrice']);
 Route::get('/search', ['uses'=>'CarPartController@Search']);
-
-
+Route::get('/showPart', ['uses'=>'CarPartController@ShowPart']);
 
 Route::get('/description',['uses'=>'DescriptionController@getDescription']);
 
