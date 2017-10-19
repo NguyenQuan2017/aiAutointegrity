@@ -15,7 +15,7 @@ class CarPartController extends Controller
    public function Make() {
        $makes = Flat::selectRaw('upper(VehicleMake) as VehicleMake,count(VehicleMake) as countMake')
            ->groupBy('VehicleMake')
-           ->orderBy('countMake','DESC')
+           ->orderBy('VehicleMake','ASC')
            ->get();
        return response([
            'status'=> 200,
@@ -28,8 +28,10 @@ class CarPartController extends Controller
         $makes = $req->input('makes');
         $models = Flat::selectRaw('upper(VehicleModel) as VehicleModel,count(VehicleModel) as countModel')
             ->where('VehicleMake',$makes)
+            ->where('VehicleMake', '<>','')
+            ->where('VehicleMake', '<>','.')
             ->groupBy('VehicleModel')
-            ->orderBy('countModel','DESC')
+            ->orderBy('VehicleModel','ASC')
             ->skip(0)
             ->take(2000)
             ->get();
@@ -47,7 +49,7 @@ class CarPartController extends Controller
         $series = Flat::selectRaw('upper(VehicleSeries) as VehicleSeries, count(VehicleSeries) as countSeries')
             ->where([['VehicleMake',$makes],['VehicleModel',$models],['VehicleSeries','<>',""],['VehicleSeries','<>','.']])
             ->groupBy('VehicleSeries')
-            ->orderBy('countSeries','DESC')
+            ->orderBy('VehicleSeries','ASC')
             ->get();
         return response([
             'status'=> 200,
@@ -67,7 +69,7 @@ class CarPartController extends Controller
                 '<>','.'],
                 ['VehicleBadge','<>','-']])
             ->groupBy('VehicleBadge')
-            ->orderBy('countBadge','DESC')
+            ->orderBy('VehicleBadge','ASC')
             ->get();
         return response([
             'status'=> 200,
@@ -97,7 +99,7 @@ class CarPartController extends Controller
         })
             ->where('Price','<>',"")
             ->where('CommentTest','<>','')
-            ->orderBy('CommentTest','DESC')
+            ->orderBy('CommentTest','ASC')
             ->skip(0)
             ->take(2000)
             ->get();
@@ -142,7 +144,7 @@ class CarPartController extends Controller
         })
             ->where('Price','<>',"")
             ->where('CommentTest','<>','')
-            ->orderBy('CommentTest','DESC')
+            ->orderBy('CommentTest','ASC')
             ->skip(0)
             ->take(100)
             ->get();
