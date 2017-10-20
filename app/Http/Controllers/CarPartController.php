@@ -28,8 +28,8 @@ class CarPartController extends Controller
         $makes = $req->input('makes');
         $models = Flat::selectRaw('upper(VehicleModel) as VehicleModel,count(VehicleModel) as countModel')
             ->where('VehicleMake',$makes)
-            ->where('VehicleMake', '<>','')
-            ->where('VehicleMake', '<>','.')
+            ->where('VehicleModel', '<>','')
+            ->where('VehicleModel', '<>','.')
             ->groupBy('VehicleModel')
             ->orderBy('VehicleModel','ASC')
             ->skip(0)
