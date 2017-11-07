@@ -17,7 +17,7 @@ app.controller('CarPartController', ['$scope','$http', function($scope,$http) {
     $scope.filteredCarPart = [];
     $scope.limitResults = [];
     $scope.currentPage = 1;
-    $scope.itemsPerPage = 30;
+    $scope.itemsPerPage = 100;
     $scope.maxSize = 3;
     // Function init get data Make
     $scope.init = function () {

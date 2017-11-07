@@ -46,40 +46,43 @@
         </div>
     </div>
     <div class="container">
-    <div class="panel panel-default row">
+    <div class="panel panel-default">
 
         <table class="table">
             <thead class="thead-inverse">
-            <tr ng-hide="CarPartPrice" id="CarPartNumber" class="row" style="margin: -15px" >
+            <tr ng-hide="CarPartPrice" id="CarPartNumber" class="row"  style="margin:0 -29px ">
                 <th class="col-md-5 col-sm-5 col-5">Description</th>
                 <th class="col-md-5 col-sm-4 col-4">Part Number</th>
                 <th class="col-md-2 col-sm-3 col-3">Price</th>
             </tr>
-            <tr ng-hide="SearchPartNumber" class="search-price-title">
+            <!--<tr ng-hide="SearchPartNumber" class="search-price-title">-->
 
-                <th scope="col">Vehicle Make</th>
-                <th scope="col">Vehicle Model</th>
-                <th scope="col">Vehicle Series</th>
-                <th scope="col">Vehicle Badge</th>
-                <th scope="col">Description</th>
-                <th scope="col">Part Number</th>
-                <th scope="col">Price</th>
-            </tr>
+                <!--<th scope="col">Vehicle Make</th>-->
+                <!--<th scope="col">Vehicle Model</th>-->
+                <!--<th scope="col">Vehicle Series</th>-->
+                <!--<th scope="col">Vehicle Badge</th>-->
+                <!--<th scope="col">Description</th>-->
+                <!--<th scope="col">Part Number</th>-->
+                <!--<th scope="col">Price</th>-->
+            <!--</tr>-->
             </thead>
             <tbody>
-            <tr ng-hide="CarPartPrice" ng-repeat=" result in limitResults" class="cartPrice row">
+            <tr ng-hide="CarPartPrice" ng-repeat=" result in limitResults" class="cartPrice row border-bottom"
+                style="margin:0 -29px ">
                 <td class="col-md-5 col-sm-5 col-5">{{result.CommentTest}}</td>
                 <td class="col-md-5 col-sm-4 col-4">{{result.PartNumber}}</td>
                 <td class="col-md-2 col-sm-3 col-3" style="text-align: right">{{result.Price | number: 2}}</td>
             </tr>
-            <tr ng-hide="SearchPartNumber" ng-repeat= " k in limitSearch" class="search-price-title " ng-click="ShowPart(k.VehicleMake, k.VehicleModel, k.VehicleSeries, k.VehicleBadge)">
-                <td data-label="Vehicle Make">{{k.VehicleMake}}</td>
-                <td data-label="Vehicle Model">{{k.VehicleModel}}</td>
-                <td data-label="Vehicle Series">{{k.VehicleSeries ? k.VehicleSeries : ''}}</td>
-                <td data-label="Vehicle Badge">{{k.VehicleBadge ? k.VehicleBadge : ''}}</td>
-                <td data-label="Description">{{k.CommentTest}}</td>
-                <td data-label="Part Number">{{k.PartNumber}}</td>
-                <td data-label="Price" style="text-align: right">{{k.Price |number: 2}}</td>
+            <tr ng-hide="SearchPartNumber" ng-repeat= " k in limitSearch" class=" border-bottom search-price-title row" ng-click="ShowPart(k.VehicleMake, k.VehicleModel, k.VehicleSeries, k.VehicleBadge)"  style="margin:0 -29px">
+                <td class="col-md-9 col-sm-9 col-9">
+                {{k.VehicleMake}} /
+                {{k.VehicleModel}} /
+                {{k.VehicleSeries ? k.VehicleSeries : ''}}
+                {{k.VehicleBadge ? k.VehicleBadge : ''}} /
+                {{k.CommentTest}} /
+                {{k.PartNumber}}
+                </td>
+                <td class="text-right col-md-3 col-sm-3 col-3">{{k.Price |number: 2}}</td>
             </tr>
             </tbody>
         </table>

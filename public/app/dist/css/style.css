@@ -133,7 +133,7 @@ select {
     text-align: center;
 }
 .border-bottom {
-    border-bottom: 1px solid;
+    border-bottom: 1px solid lightslategrey;
 }
 .text-right {
     text-align: right;
@@ -150,6 +150,12 @@ table {
     table-layout: fixed;
 }
 
+tr:nth-of-type(odd) {
+background: #f8f8f8;
+}
+tr:nth-of-type(2n) {
+background: #e6e6e6;
+}
 
 table th,
 table td {
@@ -161,53 +167,53 @@ th {
     font-weight: bold;
 }
 
-@media screen and (max-width: 640px) {
-    table {
-        border: 0;
-    }
-    table thead .search-price-title {
-        border: none;
-        clip: rect(0 0 0 0);
-        height: 1px;
-        margin: -1px;
-        overflow: hidden;
-        padding: 0;
-        position: absolute;
-        width: 1px;
-    }
-    tr.search-price-title:nth-of-type(odd) {
-        background: #f8f8f8;
-    }
-    tr.search-price-title:nth-of-type(2n) {
-        background: #e6e6e6;
-    }
-    table tr.search-price-title {
-        border-bottom: 0 solid #ddd;
-        display: block;
-        margin-bottom: 30px;
-    }
-    table td {
-        border-bottom: 1px solid #ddd;
-        display: block;
-        font-size: .8em;
-    }
-    table td:before {
-        /*
-        * aria-label has no advantage, it won't be read inside a table
-        content: attr(aria-label);
-        */
-        content: attr(data-label);
-        float: left;
-        font-weight: bold;
-        text-transform: uppercase;
-    }
-    ul li {
-        font-size: 5px;
-    }
-}
-.margin-5 {
-    margin:5px;
-}
-.margin-10 {
-    margin:10px;
-}
+/*@media screen and (max-width: 640px) {*/
+    /*table {*/
+        /*border: 0;*/
+    /*}*/
+    /*table thead .search-price-title {*/
+        /*border: none;*/
+        /*clip: rect(0 0 0 0);*/
+        /*height: 1px;*/
+        /*margin: -1px;*/
+        /*overflow: hidden;*/
+        /*padding: 0;*/
+        /*position: absolute;*/
+        /*width: 1px;*/
+    /*}*/
+    /*tr.search-price-title:nth-of-type(odd) {*/
+        /*background: #f8f8f8;*/
+    /*}*/
+    /*tr.search-price-title:nth-of-type(2n) {*/
+        /*background: #e6e6e6;*/
+    /*}*/
+    /*table tr.search-price-title {*/
+        /*border-bottom: 0 solid #ddd;*/
+        /*display: block;*/
+        /*margin-bottom: 30px;*/
+    /*}*/
+    /*table td {*/
+        /*border-bottom: 1px solid #ddd;*/
+        /*display: block;*/
+        /*font-size: .8em;*/
+    /*}*/
+    /*table .search-price-title td:before {*/
+        /*!**/
+        /** aria-label has no advantage, it won't be read inside a table*/
+        /*content: attr(aria-label);*/
+        /**!*/
+        /*content: attr(data-label);*/
+        /*float: left;*/
+        /*font-weight: bold;*/
+        /*text-transform: uppercase;*/
+    /*}*/
+    /*ul li {*/
+        /*font-size: 5px;*/
+    /*}*/
+/*}*/
+/*.margin-5 {*/
+    /*margin:5px;*/
+/*}*/
+/*.margin-10 {*/
+    /*margin:10px;*/
+/*}*/
