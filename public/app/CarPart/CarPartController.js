@@ -80,6 +80,9 @@ app.controller('CarPartController', ['$scope','$http', function($scope,$http) {
 
     //Function Show Cart Price
     $scope.Show = function () {
+        if($scope.make == '') {
+            $scope.resutls = '';
+        }else {
          $http.get('/results?makes=' + $scope.make + '&models=' + $scope.model + '&series=' + $scope.serial + '&badges=' +$scope.badge )
             .then(function(response) {
                 $scope.results = response.data.results;
@@ -91,6 +94,7 @@ app.controller('CarPartController', ['$scope','$http', function($scope,$http) {
                     $scope.limitResults = $scope.results.slice(begin, end);
                 });
             });
+        }
         $scope.keywords = '';
         $scope.SearchPartNumber = true;
         $scope.CarPartPrice = false;
