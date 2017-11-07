@@ -31,7 +31,7 @@ class CarPartController extends Controller
             ->where('VehicleModel', '<>','')
             ->where('VehicleModel', '<>','.')
             ->groupBy('VehicleModel')
-            ->orderBy('VehicleModel','ASC')
+            ->orderBy('countModel','DESC')
             ->skip(0)
             ->take(2000)
             ->get();
@@ -47,9 +47,10 @@ class CarPartController extends Controller
         $makes = $req->input('makes');
         $models = $req->input('models');
         $series = Flat::selectRaw('upper(VehicleSeries) as VehicleSeries, count(VehicleSeries) as countSeries')
-            ->where([['VehicleMake',$makes],['VehicleModel',$models],['VehicleSeries','<>',""],['VehicleSeries','<>','.']])
+            ->where([['VehicleMake',$makes],['VehicleModel',$models],['VehicleSeries','<>',""],['VehicleSeries','<>',
+                '.'],['VehicleSeries','<>','**'],['VehicleSeries','<>','-']])
             ->groupBy('VehicleSeries')
-            ->orderBy('VehicleSeries','ASC')
+            ->orderBy('countSeries','DESC')
             ->get();
         return response([
             'status'=> 200,
@@ -63,13 +64,11 @@ class CarPartController extends Controller
         $makes = $req->input('makes');
         $models = $req->input('models');
         $series = $req->input('series');
-        $badges = Car::selectRaw('upper(VehicleBadge) as VehicleBadge, count(VehicleBadge) as countBadge')
-            ->where([['VehicleMake',$makes],['VehicleModel',$models],['VehicleSeries',$series],['VehicleBadge','<>',""],
-                ['VehicleBadge',
-                '<>','.'],
-                ['VehicleBadge','<>','-']])
+        $badges = Flat::selectRaw('upper(VehicleBadge) as VehicleBadge, count(VehicleBadge) as countBadge')
+            ->where([['VehicleMake',$makes],['VehicleModel',$models],['VehicleSeries',$series]])
+            ->where([['VehicleBadge','<>',""],['VehicleBadge','<>','.']])
             ->groupBy('VehicleBadge')
-            ->orderBy('VehicleBadge','ASC')
+            ->orderBy('countBadge','DESC')
             ->get();
         return response([
             'status'=> 200,

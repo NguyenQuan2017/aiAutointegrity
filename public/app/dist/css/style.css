@@ -21,9 +21,8 @@
     margin:10px;
 }
 .keyword {
-    width: 150px;
     box-sizing: border-box;
-    border: 2px solid #ccc;
+    border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 14px;
     background-color: white;
@@ -32,17 +31,19 @@
     padding: 6px 11px 9px 22px;
     -webkit-transition: width 0.4s ease-in-out;
     transition: width 0.4s ease-in-out;
-    margin:10px;
 
 }
-.keyword:focus {
-    width: 30%;
+/*.keyword:focus {*/
+    /*width: 50%;*/
+/*}*/
+ th {
+    border-right:1px slategray inset ;
 }
-hr {
-    width: 100%;
+table {
+    margin: 1px auto;
 }
-.table thead, th {
-    border:1px slategray inset ;
+#CarPart {
+    padding:5px auto;
 }
 #CarPartNumber {
     margin-bottom: 5px;
@@ -54,7 +55,8 @@ hr {
    text-align: center;
 }
 .panel {
-    margin-top: 20px;
+    /*margin-top: 20px;*/
+    /*margin:10px;*/
 }
 table tbody tr td {
     cursor: pointer;
@@ -66,5 +68,147 @@ table tbody tr td {
     height: 50px;
 }
 .btn-black {
-    background: gray !important;
+    background: #121111 !important;
+    color: white;
+}
+* {
+    margin-top: 10px !important;
+}
+.btn-search {
+    /*margin-bottom: 5px !important;*/
+    background-color: #101314;
+    border-color: #161718;
+}
+.btn-search:hover {
+    background-color: #121314;
+    border-color: #181a1a;
+}
+.btn-search:focus {
+    box-shadow:none;
+}
+select {
+    background: rgba(0, 0, 0, 0.3);
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+}
+.size-40 {
+    width: 40%;
+}
+.size-35 {
+    width: 35%;
+}
+.size-30 {
+    width: 30%;
+}
+
+.size-25 {
+    width: 25%;
+}
+.size-20 {
+    width: 20%;
+}
+.size-15 {
+    width: 15%;
+}
+.size-10 {
+    width: 10%;
+}
+.size-5 {
+    width: 5%;
+}
+.size-13 {
+    width: 13%;
+}
+.size-6 {
+    width: 6%;
+}
+.border-right {
+    border-right: 1px solid #fff;
+    height: 100%;
+}
+.border-left {
+    border-left: 1px solid #fff;
+    height: 100%;
+}
+.text-center {
+    text-align: center;
+}
+.border-bottom {
+    border-bottom: 1px solid;
+}
+.text-right {
+    text-align: right;
+}
+th {
+    text-align: center;
+}
+/*Responsive*/
+table {
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    table-layout: fixed;
+}
+
+
+table th,
+table td {
+    padding: .60em;
+}
+th {
+    background: #333;
+    color: white;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 640px) {
+    table {
+        border: 0;
+    }
+    table thead .search-price-title {
+        border: none;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+    }
+    tr.search-price-title:nth-of-type(odd) {
+        background: #f8f8f8;
+    }
+    tr.search-price-title:nth-of-type(2n) {
+        background: #e6e6e6;
+    }
+    table tr.search-price-title {
+        border-bottom: 0 solid #ddd;
+        display: block;
+        margin-bottom: 30px;
+    }
+    table td {
+        border-bottom: 1px solid #ddd;
+        display: block;
+        font-size: .8em;
+        text-align: right;
+    }
+    table td:before {
+        /*
+        * aria-label has no advantage, it won't be read inside a table
+        content: attr(aria-label);
+        */
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+    ul li {
+        font-size: 5px;
+    }
+}
+.margin-5 {
+    margin:5px;
+}
+.margin-10 {
+    margin:10px;
 }
